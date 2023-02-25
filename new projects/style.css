@@ -1,0 +1,328 @@
+@import "https://fonts.googleapis.com/css?family=Open+Sans:300,400";
+.firstinfo,
+body {
+  display: flex;
+  z-index: 10;
+  /* justify-content: center; */
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+#canvas1 {
+  z-index: -10;
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+#canvas2 {
+  z-index: -10;
+  top: 100vh;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.badgescard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.content {
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+  z-index: 11;
+}
+body {
+  font-family: "Open Sans", sans-serif;
+  width: 100%;
+  /* height: 200vh; */
+  min-height: 100%;
+  background-image: linear-gradient(to bottom right, #000 80%, #00f0ff);
+  background-blend-mode: multiply;
+  font-size: 16px;
+  /* overflow: hidden; */
+}
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+.content {
+  position: relative;
+  animation: animatop 0.9s cubic-bezier(0.425, 1.14, 0.47, 1.125) forwards;
+}
+.card {
+  width: 500px;
+  min-height: 100px;
+  padding: 20px;
+  border-radius: 3px;
+  background-color: white;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+.card:after {
+  content: "";
+  display: block;
+  width: 190px;
+  height: 300px;
+  background: #00f0ff;
+  position: absolute;
+  animation: rotatemagic 0.75s cubic-bezier(0.425, 1.04, 0.47, 1.105) 1s both;
+}
+.card-2 {
+  margin-top: 100px;
+}
+
+.badgescard {
+  padding: 10px 20px;
+  border-radius: 3px;
+  background-color: #ececec;
+  width: 480px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  z-index: -1;
+  left: 10px;
+  bottom: 10px;
+}
+.card:hover + .badgescard {
+  animation: animainfos 0.5s cubic-bezier(0.425, 1.04, 0.47, 1.105) 0.75s
+    forwards;
+  transition: all ease-in-out 1s;
+}
+.badgescard:hover {
+  animation: animainfos 0.5s cubic-bezier(0.425, 1.04, 0.47, 1.105) 0.75s
+    forwards;
+  transition: all ease-in-out 1s;
+}
+.devicons:hover {
+  color: #00f0ff;
+}
+.badgescard a {
+  font-size: 1.6em;
+  margin: 0px 6px;
+  opacity: 0.6;
+}
+.firstinfo {
+  flex-direction: row;
+  z-index: 2;
+  position: relative;
+}
+.firstinfo img {
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+}
+.firstinfo .profileinfo {
+  padding: 0px 20px;
+}
+.firstinfo .profileinfo h1 {
+  font-size: 1.8em;
+}
+.firstinfo .profileinfo h3 {
+  font-size: 1.2em;
+  color: #00f0ff;
+  font-style: none;
+}
+.firstinfo .profileinfo p.bio {
+  padding: 10px 10px;
+  color: #5a5a5a;
+  line-height: 1.2;
+  font-style: initial;
+}
+@keyframes animatop {
+  0% {
+    opacity: 0;
+    bottom: -500px;
+  }
+  100% {
+    opacity: 1;
+    bottom: 0px;
+  }
+}
+@keyframes animainfos {
+  0% {
+    bottom: 10px;
+  }
+  100% {
+    bottom: -42px;
+  }
+}
+@keyframes animaoutfos {
+  0% {
+    bottom: -42px;
+  }
+  100% {
+    bottom: 10px;
+  }
+}
+@keyframes rotatemagic {
+  0% {
+    opacity: 0;
+    transform: rotate(0deg);
+    top: -24px;
+    left: -253px;
+  }
+  100% {
+    transform: rotate(-45deg);
+    top: -24px;
+    left: -100px;
+  }
+}
+@media only screen and (max-width: 600px) and (min-width: 250px) {
+  .firstinfo,
+  body {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+  .badgescard {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+  }
+  .content {
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+    animation: animatop 0.9s cubic-bezier(0.425, 1.14, 0.47, 1.125) forwards;
+  }
+  body {
+    font-family: "Open Sans", sans-serif;
+    width: 80vw;
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    left: auto;
+    padding-left: 15%;
+    text-align: center;
+    /* height: 200vh; */
+    min-height: 100%;
+    background-image: linear-gradient(to bottom right, #000 80%, #00f0ff);
+    /* background-blend-mode: multiply; */
+    font-size: 1rem;
+    /* overflow: hidden; */
+  }
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+  }
+  .card {
+    width: 80vw;
+    min-height: 40vh;
+    padding: 5%;
+    border-radius: 3px;
+    background-color: white;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    left: auto;
+  }
+  .card:after {
+    content: "";
+    display: block;
+    width: 40vw;
+    height: 150vw;
+    background: #00f0ff;
+    position: absolute;
+    display: flex;
+    left: auto;
+    animation: rotatemagic 0.75s cubic-bezier(0.425, 1.04, 0.47, 1.105) 1s both;
+  }
+
+  .badgescard {
+    padding: 10px 20px;
+    border-radius: 3px;
+    background-color: #ececec;
+    width: 80vw;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    z-index: -1;
+    left: auto;
+    bottom: 10px;
+  }
+
+  .devicons:hover {
+    color: #00f0ff;
+  }
+  .badgescard a {
+    font-size: 1.6em;
+    margin: 0px 6px;
+    opacity: 0.6;
+  }
+  .firstinfo {
+    flex-direction: column;
+    z-index: 2;
+    position: relative;
+  }
+  .firstinfo img {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+  }
+  .firstinfo .profileinfo {
+    padding: 0px 20px;
+  }
+  .firstinfo .profileinfo h1 {
+    font-size: 1.8em;
+  }
+  .firstinfo .profileinfo h3 {
+    font-size: 1.2em;
+    color: #00f0ff;
+    font-style: none;
+  }
+  .firstinfo .profileinfo p.bio {
+    padding: 10px 10px;
+    color: #5a5a5a;
+    line-height: 1.2;
+    font-style: initial;
+  }
+  @keyframes animatop {
+    0% {
+      opacity: 0;
+      bottom: -500px;
+    }
+    100% {
+      opacity: 1;
+      bottom: 0px;
+    }
+  }
+  @keyframes animainfos {
+    0% {
+      bottom: 10px;
+    }
+    100% {
+      bottom: -42px;
+    }
+  }
+  @keyframes animaoutfos {
+    0% {
+      bottom: -42px;
+    }
+    100% {
+      bottom: 10px;
+    }
+  }
+  @keyframes rotatemagic {
+    0% {
+      opacity: 0;
+      transform: rotate(0deg);
+      top: -100px;
+      left: 0;
+    }
+    100% {
+      transform: rotate(-90deg);
+      top: -410px;
+      left: 0;
+    }
+  }
+}
