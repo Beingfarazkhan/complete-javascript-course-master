@@ -48,6 +48,7 @@ const containerApp = document.querySelector('.app');
 const containerMovements = document.querySelector('.movements');
 
 const btnLogin = document.querySelector('.login__btn');
+const btnLogout = document.querySelector('.func');
 const btnTransfer = document.querySelector('.form__btn--transfer');
 const btnLoan = document.querySelector('.form__btn--loan');
 const btnClose = document.querySelector('.form__btn--close');
@@ -86,29 +87,24 @@ const calcDisplayBalance = function (movements) {
   }, 0);
   labelBalance.textContent = `${balance}€`;
 };
-calcDisplayBalance(account1.movements);
 
-const calcDisplaySummary = function (movements) {
-  const incomes = movements
+const calcDisplaySummary = function (acc) {
+  const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, curr) => acc + curr);
   labelSumIn.textContent = `${incomes}€`;
 
-  const out = movements
+  const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, curr) => acc + curr);
   labelSumOut.textContent = `${Math.abs(out)}€`;
 
-  const interest = movements
+  const interest = acc.movements
     .filter(mov => mov > 0)
-    .map(deposit => deposit * 0.012)
+    .map(deposit => (deposit * acc.interestRate) / 100)
     .reduce((acc, curr) => acc + curr);
   labelSumInterest.textContent = `${interest}€`;
 };
-
-calcDisplaySummary(account1.movements);
-
-const user = 'Amar Akbar Anthony';
 
 const createUsernames = function (user) {
   const username = user
@@ -123,6 +119,23 @@ const createUsernames = function (user) {
 accounts.forEach(function (user) {
   user.username = createUsernames(user.owner);
 });
+
+// Logout functionality
+const loginUser = function () {
+  inputLoginPin.style.opacity = 0;
+  inputLoginUsername.style.opacity = 0;
+  btnLogin.style.opacity = 0;
+  btnLogout.style.opacity = 100;
+  btnLogout.style.top = '30px';
+};
+// const logoutUser = function () {
+//   inputLoginPin.style.opacity = 100;
+//   inputLoginUsername.style.opacity = 100;
+//   btnLogin.style.opacity = 100;
+//   btnLogout.style.opacity = 0;
+//   btnLogout.style.top = '-30px';
+//   window.location.reload();
+// };
 
 let currentAccount;
 btnLogin.addEventListener('click', function (e) {
@@ -144,12 +157,26 @@ btnLogin.addEventListener('click', function (e) {
   labelWelcome.textContent = `Welcome Back, ${
     currentAccount.owner.split(' ')[0]
   }!`;
+  // clear Login Credentials
+  inputLoginUsername.value = inputLoginPin.value = '';
+  inputLoginPin.blur();
+  inputLoginUsername.blur();
   // Display Credentials and Movements for the user
   displayMovements(currentAccount.movements);
   // Display calculated Balance
   calcDisplayBalance(currentAccount.movements);
   // Display Summary of the Movements
-  calcDisplaySummary(currentAccount.movements);
+  calcDisplaySummary(currentAccount);
+  // Making the app visible
+  containerApp.style.opacity = 100;
+  // Removing the input fields and add Logout button
+  loginUser();
+  btnLogout.addEventListener(
+    'click',
+    /*logoutUser*/ () => {
+      window.location.reload();
+    }
+  );
 });
 
 console.log(account1);
