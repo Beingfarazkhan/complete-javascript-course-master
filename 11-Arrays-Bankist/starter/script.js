@@ -124,9 +124,32 @@ accounts.forEach(function (user) {
   user.username = createUsernames(user.owner);
 });
 
+let currentAccount;
 btnLogin.addEventListener('click', function (e) {
   e.preventDefault();
-  accounts.find(acc=> acc.owner === inputLoginUsername.value)
+  currentAccount = accounts.find(
+    acc => acc.username === inputLoginUsername.value
+  );
+  console.log(currentAccount);
+  if (currentAccount) {
+    if (currentAccount.pin === Number(inputLoginPin.value)) {
+      console.log('You are Logged In');
+    } else {
+      console.log('Incorrect Pin');
+    }
+  } else {
+    console.log('Incorrect UserName');
+  }
+  // Display Ui and Welcome message
+  labelWelcome.textContent = `Welcome Back, ${
+    currentAccount.owner.split(' ')[0]
+  }!`;
+  // Display Credentials and Movements for the user
+  displayMovements(currentAccount.movements);
+  // Display calculated Balance
+  calcDisplayBalance(currentAccount.movements);
+  // Display Summary of the Movements
+  calcDisplaySummary(currentAccount.movements);
 });
 
 console.log(account1);
