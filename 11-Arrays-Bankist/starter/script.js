@@ -218,6 +218,22 @@ btnTransfer.addEventListener('click', function (e) {
   inputTransferTo.blur();
 });
 
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+  console.log('loan');
+  const amount = Number(inputLoanAmount.value);
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount / 10)) {
+    currentAccount.movements.push(amount);
+
+    // update UI
+    updateMovements(currentAccount);
+    inputLoanAmount.value = '';
+    inputLoanAmount.blur();
+  } else {
+    console.log('Insufficient Requirements');
+  }
+});
+
 btnClose.addEventListener('click', function (e) {
   e.preventDefault();
   if (
@@ -238,6 +254,15 @@ btnClose.addEventListener('click', function (e) {
   }
 });
 
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+console.log(movements);
+
+// equality
+console.log(movements.includes(450));
+
+// condition
+console.log(movements.some(mov => mov > 0));
 /* LECTURES
 
 const currencies = new Map([
@@ -246,7 +271,6 @@ const currencies = new Map([
   ['GBP', 'Pound sterling'],
 ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 
