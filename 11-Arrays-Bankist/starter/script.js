@@ -79,13 +79,13 @@ const displayMovements = function (movements) {
   });
 };
 
-displayMovements(account1.movements);
+// displayMovements(account1.movements);
 
-const calcDisplayBalance = function (movements) {
-  const balance = movements.reduce(function (acc, curr) {
+const calcDisplayBalance = function (acc) {
+  acc.balance = acc.movements.reduce(function (acc, curr) {
     return acc + curr;
   }, 0);
-  labelBalance.textContent = `${balance}€`;
+  labelBalance.textContent = `${acc.balance}€`;
 };
 
 const calcDisplaySummary = function (acc) {
@@ -120,6 +120,14 @@ accounts.forEach(function (user) {
   user.username = createUsernames(user.owner);
 });
 
+const updateMovements = function (acc) {
+  // Display Credentials and Movements for the user
+  displayMovements(acc.movements);
+  // Display calculated Balance
+  calcDisplayBalance(acc);
+  // Display Summary of the Movements
+  calcDisplaySummary(acc);
+};
 // Logout functionality
 const loginUser = function () {
   inputLoginPin.style.opacity = 0;
@@ -128,14 +136,16 @@ const loginUser = function () {
   btnLogout.style.opacity = 100;
   btnLogout.style.top = '30px';
 };
-// const logoutUser = function () {
-//   inputLoginPin.style.opacity = 100;
-//   inputLoginUsername.style.opacity = 100;
-//   btnLogin.style.opacity = 100;
-//   btnLogout.style.opacity = 0;
-//   btnLogout.style.top = '-30px';
-//   window.location.reload();
-// };
+const logoutUser = function () {
+  inputLoginPin.style.opacity = 100;
+  inputLoginUsername.style.opacity = 100;
+  btnLogin.style.opacity = 100;
+  btnLogout.style.opacity = 0;
+  btnLogout.style.top = '-30px';
+  containerApp.style.opacity = 0;
+  labelWelcome.textContent = 'Log in to get started';
+  // window.location.reload();
+};
 
 let currentAccount;
 btnLogin.addEventListener('click', function (e) {
@@ -157,29 +167,76 @@ btnLogin.addEventListener('click', function (e) {
   labelWelcome.textContent = `Welcome Back, ${
     currentAccount.owner.split(' ')[0]
   }!`;
+
   // clear Login Credentials
   inputLoginUsername.value = inputLoginPin.value = '';
   inputLoginPin.blur();
   inputLoginUsername.blur();
+
   // Display Credentials and Movements for the user
-  displayMovements(currentAccount.movements);
+  // displayMovements(currentAccount.movements);
   // Display calculated Balance
-  calcDisplayBalance(currentAccount.movements);
+  // calcDisplayBalance(currentAccount);
   // Display Summary of the Movements
-  calcDisplaySummary(currentAccount);
+  // calcDisplaySummary(currentAccount);
   // Making the app visible
+  // can also be implemented using the function below
+  updateMovements(currentAccount);
+
   containerApp.style.opacity = 100;
   // Removing the input fields and add Logout button
   loginUser();
   btnLogout.addEventListener(
     'click',
-    /*logoutUser*/ () => {
-      window.location.reload();
-    }
+    logoutUser /* => {
+    //   window.location.reload();
+    // }*/
   );
 });
 
-console.log(account1);
+btnTransfer.addEventListener('click', function (e) {
+  e.preventDefault();
+  const amount = Number(inputTransferAmount.value);
+  const recieverAcc = accounts.find(
+    acc => acc.username === inputTransferTo.value
+  );
+
+  if (
+    amount <= currentAccount.balance &&
+    amount > 0 &&
+    recieverAcc?.username !== currentAccount.username
+  ) {
+    currentAccount.movements.push(-amount);
+    recieverAcc.movements.push(amount);
+    updateMovements(currentAccount);
+  } else {
+    console.log('Insufficient Balance');
+  }
+
+  inputTransferAmount.value = inputTransferTo.value = '';
+  inputTransferAmount.blur();
+  inputTransferTo.blur();
+});
+
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+  if (
+    inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const index = accounts.findIndex(
+      acc => acc.username === currentAccount.username
+    );
+    accounts.splice(index, 1);
+    // cleaning the ui
+    inputCloseUsername.value = inputClosePin.value = '';
+    inputCloseUsername.blur();
+    inputClosePin.blur();
+    logoutUser();
+  } else {
+    console.log('Invalid Credentials');
+  }
+});
 
 /* LECTURES
 
