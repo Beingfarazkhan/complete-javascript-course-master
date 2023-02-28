@@ -55,6 +55,31 @@ nav {
   color: inherit;
   border: 1px solid #fff;
   transition: all 0.3s;
+  opacity: 100;
+}
+.logout__input {
+  background-color: white;
+  cursor: pointer;
+  position: absolute;
+  top: -30px;
+  right: 10px;
+  opacity: 100;
+  border: none;
+  padding: 0.5rem 2rem;
+  font-size: 1.6rem;
+  font-family: inherit;
+  text-align: center;
+  width: 12rem;
+  border-radius: 10rem;
+  margin-right: 1rem;
+  color: inherit;
+  border: 1px solid #fff;
+  transition: all 0.3s;
+  opacity: 0;
+}
+.logout__input:hover {
+  box-shadow: black;
+  transform: translateY(4px);
 }
 
 .login__input:focus {
@@ -73,6 +98,7 @@ nav {
   color: inherit;
   cursor: pointer;
   transition: all 0.3s;
+  opacity: 100;
 }
 
 .login__btn:hover,

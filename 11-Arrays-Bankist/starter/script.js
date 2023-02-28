@@ -65,9 +65,11 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
-  movements.forEach(function (mov, i, arr) {
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (mov, i, arr) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `
   <div class="movements__row">
@@ -234,6 +236,14 @@ btnLoan.addEventListener('click', function (e) {
   }
 });
 
+let sorted = false;
+
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
+});
+
 btnClose.addEventListener('click', function (e) {
   e.preventDefault();
   if (
@@ -254,7 +264,42 @@ btnClose.addEventListener('click', function (e) {
   }
 });
 
+/* LECTURES
+
+
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+console.log(movements);
+
+// // ascending
+// console.log(
+//   movements.sort((a, b) => {
+//     if (a > b) {
+//       return 1;
+//     }
+//     if (a < b) {
+//       return -1;
+//     }
+//   })
+// );
+
+// // descending
+// console.log(
+//   movements.sort((a, b) => {
+//     if (a < b) {
+//       return 1;
+//     }
+//     if (a > b) {
+//       return -1;
+//     }
+//   })
+// );
+
+// ascending
+console.log(movements.sort((a, b) => a - b));
+
+// descending
+console.log(movements.sort((a, b) => b - a));
 
 console.log(movements);
 
@@ -262,8 +307,7 @@ console.log(movements);
 console.log(movements.includes(450));
 
 // condition
-console.log(movements.some(mov => mov > 0));
-/* LECTURES
+console.log(mosvements.some(mov => mov > 0));
 
 const currencies = new Map([
   ['USD', 'United States dollar'],
