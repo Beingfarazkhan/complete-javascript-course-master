@@ -169,3 +169,5 @@ h1.addEventListener('mouseenter', alertH1);
 // h1.onmouseenter = function (e) {
 //   alert('addEventListener : You are now reading the heading element');
 // };
+
+// Event Propagation
