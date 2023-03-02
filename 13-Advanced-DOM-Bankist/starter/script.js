@@ -173,3 +173,5 @@ h1.addEventListener('mouseenter', alertH1);
 // Event Propagation
 
 // Bubbling
+
+// Capturing
