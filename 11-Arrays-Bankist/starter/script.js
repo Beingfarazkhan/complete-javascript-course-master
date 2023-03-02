@@ -107,7 +107,7 @@ const calcDisplaySummary = function (acc) {
     .reduce((acc, curr) => acc + curr);
   labelSumInterest.textContent = `${interest}€`;
 };
-
+// Creation Of usernames for the accounts array
 const createUsernames = function (user) {
   const username = user
     .toLowerCase()
