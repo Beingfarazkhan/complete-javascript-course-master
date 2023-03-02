@@ -33,6 +33,57 @@ document.addEventListener('keydown', function (e) {
 });
 
 const header = document.querySelector('.header');
+
+// Button Scroll
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function (e) {
+  const s1coords = section1.getBoundingClientRect();
+  console.log(s1coords);
+
+  console.log(e.target.getBoundingClientRect());
+
+  console.log('Current Scroll (x, y)', window.pageXOffset, window.pageYOffset);
+
+  console.log(
+    'Heigth, width of the viewport ',
+    document.documentElement.clientHeight,
+    document.documentElement.clientWidth
+  );
+
+  // Old School technique :
+
+  // Scrolling Functionality
+  // window.scrollTo(
+  //   s1coords.left + window.pageXOffset,
+  //   s1coords.top + window.pageYOffset
+  // );
+
+  // window.scrollTo({
+  //   left: s1coords.left + window.pageXOffset,
+  //   top: s1coords.top + window.pageYOffset,
+  //   behavior: 'smooth',
+  // });
+
+  // New Method
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
+
+// Navigation Scroll (Event Delegation)
+
+document.querySelectorAll('.nav__link').forEach(el =>
+  el.addEventListener('click', function (e) {
+    e.preventDefault();
+    const id = el.getAttribute('href');
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  })
+);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////     PRACTICE     ///////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 /*
 // Creating Element and Inserting element
 const message = document.createElement('div');
@@ -109,61 +160,28 @@ logo.classList.contains('c');
 logo.className = 'jonas';
 */
 
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
+// Removing Event Listeners
 
-btnScrollTo.addEventListener('click', function (e) {
-  const s1coords = section1.getBoundingClientRect();
-  console.log(s1coords);
+// document.addEventListener('keyup', function (e) {
+//   console.log(e.key);
+// });
 
-  console.log(e.target.getBoundingClientRect());
+// const alertH1 = function (e) {
+//   alert('addEventListener : You are now reading the heading element');
 
-  console.log('Current Scroll (x, y)', window.pageXOffset, window.pageYOffset);
-
-  console.log(
-    'Heigth, width of the viewport ',
-    document.documentElement.clientHeight,
-    document.documentElement.clientWidth
-  );
-
-  // Old School technique :
-
-  // Scrolling Functionality
-  // window.scrollTo(
-  //   s1coords.left + window.pageXOffset,
-  //   s1coords.top + window.pageYOffset
-  // );
-
-  // window.scrollTo({
-  //   left: s1coords.left + window.pageXOffset,
-  //   top: s1coords.top + window.pageYOffset,
-  //   behavior: 'smooth',
-  // });
-
-  // New Method
-  section1.scrollIntoView({ behavior: 'smooth' });
-});
-
-document.addEventListener('keyup', function (e) {
-  console.log(e.key);
-});
-
-const alertH1 = function (e) {
-  alert('addEventListener : You are now reading the heading element');
-
-  // h1.removeEventListener('mouseenter', alertH1);
-};
+//   // h1.removeEventListener('mouseenter', alertH1);
+// };
 
 // remove event listener
 // h1.removeEventListener('mouseenter', alertH1);
 
-setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 5000);
+// setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 5000);
 
 // Adding event listeners:
 
 // Method 1 : New Method , you can add multiple eventlisteners using this
-const h1 = document.querySelector('h1');
-h1.addEventListener('mouseenter', alertH1);
+// const h1 = document.querySelector('h1');
+// h1.addEventListener('mouseenter', alertH1);
 
 // Method 2 : Old Method and only one event listener can be added rest are overrided
 // h1.onmouseenter = function (e) {
