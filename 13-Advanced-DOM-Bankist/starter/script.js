@@ -265,3 +265,21 @@ h1.closest('.header').style.background = 'var(--gradient-secondary)';
 // query selector finds child whereas
 // Closest() finds parents
 h1.closest('h1').style.background = 'var(--gradient-primary)';
+
+// Going sideways
+console.log(h1.previousElementSibling);
+
+console.log(h1.nextElementSibling);
+
+console.log(h1.previousSibling);
+
+console.log(h1.nextSibling);
+
+// Trick to get all the sibiling is : get to parent element and then find all children
+
+console.log(h1.parentElement.children);
+[...h1.parentElement.children].forEach(function (el) {
+  if (el !== h1) {
+    el.style.transform = 'scale(0.5)';
+  }
+});
