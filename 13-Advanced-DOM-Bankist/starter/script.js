@@ -240,3 +240,18 @@ document.querySelector('.nav').addEventListener('click', function (e) {
 });
 
 */
+
+// Dom Traversal
+
+const h1 = document.querySelector('h1');
+
+// Going Downwards to the child
+console.log(h1.querySelectorAll('.highlight'));
+
+console.log(h1.childNodes); //Gives everything inside the html including comments
+
+console.log(h1.children); //Gives list of all the html elements inside the h1 tag(live collection)
+// the above only works for direct children
+
+h1.firstElementChild.style.color = 'white';
+h1.lastElementChild.style.color = 'orangered';
