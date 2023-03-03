@@ -255,3 +255,13 @@ console.log(h1.children); //Gives list of all the html elements inside the h1 ta
 
 h1.firstElementChild.style.color = 'white';
 h1.lastElementChild.style.color = 'orangered';
+
+// Going upwards to the parent
+console.log(h1.parentNode);
+console.log(h1.parentElement);
+
+h1.closest('.header').style.background = 'var(--gradient-secondary)';
+// closest can be defined as the opposite of query selector
+// query selector finds child whereas
+// Closest() finds parents
+h1.closest('h1').style.background = 'var(--gradient-primary)';
