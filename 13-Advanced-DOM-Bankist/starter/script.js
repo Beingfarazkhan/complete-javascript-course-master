@@ -72,13 +72,31 @@ btnScrollTo.addEventListener('click', function (e) {
 
 // Navigation Scroll (Event Delegation)
 
-document.querySelectorAll('.nav__link').forEach(el =>
-  el.addEventListener('click', function (e) {
-    e.preventDefault();
-    const id = el.getAttribute('href');
+// Normal Method
+// document.querySelectorAll('.nav__link').forEach(el =>
+//   el.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const id = el.getAttribute('href'); //this.getAttribute('href');
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   })
+// );
+
+// Event delegation :
+// 1) Add event listener to the common parent element
+// 2) Determine what element originated the event
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+  // console.log(e.target);
+
+  // MAtching Strategy
+  if (e.target.classList.contains('nav__link')) {
+    // console.log('Link');
+    const id = e.target.getAttribute('href');
+    console.log(id);
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
-  })
-);
+  }
+});
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////     PRACTICE     ///////////////////////////////////////////////////////////////////////////////
