@@ -241,6 +241,8 @@ document.querySelector('.nav').addEventListener('click', function (e) {
 
 */
 
+///////////////////////////////////////////////////////////////////////////////////////////
+/*
 // Dom Traversal
 
 const h1 = document.querySelector('h1');
@@ -283,3 +285,6 @@ console.log(h1.parentElement.children);
     el.style.transform = 'scale(0.5)';
   }
 });
+
+*/
+///////////////////////////////////////////////////////////////////////////////////////////
