@@ -176,3 +176,33 @@ console.log(account.latest);
 
 account.latest = 50;
 console.log(account.movements);
+
+/////////////////////////////////////////////////////////
+// Objects Create
+
+const personProto = {
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  },
+
+  // Init Function works as Constructor
+
+  init(fullName, birthYear) {
+    this.firstName = fullName;
+    this.birthYear = birthYear;
+  },
+};
+
+const steven = Object.create(personProto);
+console.log(steven);
+
+steven.fullName = 'Steven';
+steven.birthYear = 1991;
+
+steven.calcAge();
+
+const sarah = Object.create(personProto);
+sarah.init('Sarah Conors', 1980);
+sarah.calcAge();
+
+console.log(sarah.__proto__);
