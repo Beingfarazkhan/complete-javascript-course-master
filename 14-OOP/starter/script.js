@@ -349,3 +349,4 @@ const jay = Object.create(StudentProto);
 jay.init('Jay', 1990, 'MBA');
 jay.introduce();
 jay.calcAge();
+// extended classes
