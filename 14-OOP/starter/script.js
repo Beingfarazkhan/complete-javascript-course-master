@@ -89,6 +89,8 @@ class PersonCl {
     this.birthYear = birthYear;
   }
 
+  // Instance Methods
+
   calcAge() {
     console.log(2037 - this.birthYear);
   }
@@ -117,7 +119,19 @@ class PersonCl {
   get bloodType() {
     return this._bloodType;
   }
+
+  // Static Method
+  static hey() {
+    console.log('Hello Brother !🙋🏻‍♂️');
+  }
 }
+
+PersonCl.hey = function () {
+  console.log('Hello Brother !🙋🏻‍♂️');
+};
+
+PersonCl.hey();
+// jonas.hey() gives error because hey() is not defined in the prototype of Jonas
 
 const jessica = new PersonCl('Jessica', 1990);
 console.log(jessica);
