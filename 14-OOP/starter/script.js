@@ -96,6 +96,27 @@ class PersonCl {
   greet() {
     console.log(`Hey! ${this.firstName}`);
   }
+
+  get age() {
+    return 2037 - this.birthYear;
+  }
+
+  // Set a property that already exists
+  set fullName(name) {
+    if (name.includes(' ')) this._fullName = name;
+    else alert(`${name} is not a full name!`);
+  }
+
+  get fullName() {
+    return this._fullName;
+  }
+
+  set bloodType(type) {
+    this._bloodType = type;
+  }
+  get bloodType() {
+    return this._bloodType;
+  }
 }
 
 const jessica = new PersonCl('Jessica', 1990);
@@ -116,3 +137,28 @@ jessica.greet();
 // we can pass them into functions and can also return them
 
 //3) Classes are Executed in strict modes :
+
+const walter = new PersonCl('Walter White', 1965);
+walter.bloodType = 'Meth';
+console.log(walter);
+// PersonCl.hey();
+
+///////////////////////////////////////
+// Setters and Getters
+const account = {
+  owner: 'Jonas',
+  movements: [200, 530, 120, 300],
+
+  get latest() {
+    return this.movements.slice(-1).pop();
+  },
+
+  set latest(mov) {
+    this.movements.push(mov);
+  },
+};
+
+console.log(account.latest);
+
+account.latest = 50;
+console.log(account.movements);
