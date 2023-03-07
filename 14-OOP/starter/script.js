@@ -1,5 +1,6 @@
 'use strict';
 
+/*
 const Person = function (firstName, birthYear) {
   // Instance properties
   this.firstName = firstName;
@@ -72,3 +73,46 @@ console.log(arr.unique());
 
 const h1 = document.querySelector('h1');
 console.dir(x => x + 1);
+
+*/
+
+////////////////////////////////////////////////////////////////////////////////
+// Classes in JS
+
+// Class Expressions :
+// const PersonCl = class{}
+
+// Class Declaration
+class PersonCl {
+  constructor(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  }
+
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  }
+
+  greet() {
+    console.log(`Hey! ${this.firstName}`);
+  }
+}
+
+const jessica = new PersonCl('Jessica', 1990);
+console.log(jessica);
+jessica.calcAge();
+
+console.log(jessica.__proto__);
+PersonCl.prototype.greet = function () {
+  console.log(`Hey! ${this.firstName}`);
+};
+
+jessica.greet();
+
+//1) Classes are not hoisted :
+// cannot be used before declaration
+
+//2) Classes are first class citizes :
+// we can pass them into functions and can also return them
+
+//3) Classes are Executed in strict modes :
