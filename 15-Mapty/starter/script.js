@@ -3,14 +3,6 @@
 // prettier-ignore
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-const form = document.querySelector('.form');
-const containerWorkouts = document.querySelector('.workouts');
-const inputType = document.querySelector('.form__input--type');
-const inputDistance = document.querySelector('.form__input--distance');
-const inputDuration = document.querySelector('.form__input--duration');
-const inputCadence = document.querySelector('.form__input--cadence');
-const inputElevation = document.querySelector('.form__input--elevation');
-
 class Workout {
   date = new Date();
   id = (Date.now() + '').slice(-10); //Cutting edge javascript
@@ -61,6 +53,17 @@ class Cycling extends Workout {
 }
 
 let map, mapEvent;
+
+/////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////APP STARTS FROM HERE//////////////////////////////////////////////
+
+const form = document.querySelector('.form');
+const containerWorkouts = document.querySelector('.workouts');
+const inputType = document.querySelector('.form__input--type');
+const inputDistance = document.querySelector('.form__input--distance');
+const inputDuration = document.querySelector('.form__input--duration');
+const inputCadence = document.querySelector('.form__input--cadence');
+const inputElevation = document.querySelector('.form__input--elevation');
 
 class App {
   #map;
@@ -115,15 +118,48 @@ class App {
     inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
   }
   _newWorkout(e) {
+    const isValid = function (...inputs) {
+      inputs.every(inp => Number.isFinite(inp));
+    };
+    const allPositive = function (...inputs) {
+      inputs.every(inp => inp > 0);
+    };
+
     e.preventDefault();
 
-    //   Clear Input Fields
-    inputDistance.value =
-      inputCadence.value =
-      inputDuration.value =
-      inputElevation.value =
-        ' ';
+    // Get data from the form
+    const type = inputType.value;
+    const distance = +inputDistance.value;
+    const duration = +inputDuration.value;
 
+    // if workout running then , create running object
+    if (type === 'running') {
+      const cadence = +inputCadence.value;
+      // Check if data is valid
+      if (
+        // !Number.isFinite(distance) ||
+        // !Number.isFinite(duration) ||
+        // !Number.isFinite(cadence)
+        !isValid(distance, duration, cadence) ||
+        !allPositive(distance, duration, cadence)
+      )
+        return alert('Inputs have to be a positive number');
+    }
+
+    // if workout cycling then , create cycling object
+    if (type === 'cycling') {
+      const elevation = +inputElevation.value;
+      // Check if data is valid
+      if (
+        !isValid(distance, duration, elevation) ||
+        !allPositive(distance, duration)
+      )
+        return alert('Inputs have to be a positive number');
+    }
+
+    // Add activity to workout array
+
+    // Render the marker on the map
     //   Display Marker
     console.log(this.#mapEvent);
     const { lat: mapLatitude, lng: mapLongitude } = this.#mapEvent.latlng;
@@ -141,6 +177,14 @@ class App {
       )
       .setPopupContent('Workout')
       .openPopup();
+    // Render Workout on list
+
+    // Hide Form + Clear Input Fields
+    inputDistance.value =
+      inputCadence.value =
+      inputDuration.value =
+      inputElevation.value =
+        ' ';
   }
 }
 
