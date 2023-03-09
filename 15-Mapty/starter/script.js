@@ -5,51 +5,62 @@ const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 
 class Workout {
   date = new Date();
-  id = (Date.now() + '').slice(-10); //Cutting edge javascript
+  id = (Date.now() + '').slice(-10);
+  clicks = 0;
 
   constructor(coords, distance, duration) {
     // this.date = ...
-    // this.id = ... // Conventional Method
-    this.coords = coords;
-    this.distance = distance;
-    this.duration = duration;
+    // this.id = ...
+    this.coords = coords; // [lat, lng]
+    this.distance = distance; // in km
+    this.duration = duration; // in min
+  }
+
+  _setDescription() {
+    // prettier-ignore
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+    this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${
+      months[this.date.getMonth()]
+    } ${this.date.getDate()}`;
+  }
+
+  click() {
+    this.clicks++;
   }
 }
 
 class Running extends Workout {
   type = 'running';
+
   constructor(coords, distance, duration, cadence) {
     super(coords, distance, duration);
-
     this.cadence = cadence;
-
-    // Calling Methods
     this.calcPace();
+    this._setDescription();
   }
 
-  // Calculating the pace
   calcPace() {
     // min/km
-    this.pace = this.distance / this.duration;
+    this.pace = this.duration / this.distance;
     return this.pace;
   }
 }
 
 class Cycling extends Workout {
   type = 'cycling';
+
   constructor(coords, distance, duration, elevationGain) {
     super(coords, distance, duration);
-
     this.elevationGain = elevationGain;
-
-    // Calling Methods
+    // this.type = 'cycling';
     this.calcSpeed();
+    this._setDescription();
   }
 
-  // Calculating the speed
   calcSpeed() {
-    // km/hr
-    this.speed = this.distance / this.duration;
+    // km/h
+    this.speed = this.distance / (this.duration / 60);
     return this.speed;
   }
 }
@@ -77,10 +88,13 @@ class App {
     // Get user's position
     this._getPosition();
 
+    // Get data from local storage
+    this._getLocalStorage();
+
     // Attach event handlers
     form.addEventListener('submit', this._newWorkout.bind(this));
     inputType.addEventListener('change', this._toggleElevationField);
-    // containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
+    containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
   }
 
   _getPosition() {
@@ -194,6 +208,9 @@ class App {
 
     // Hide form + clear input fields
     this._hideForm();
+
+    // Set local storage to all workouts
+    this._setLocalStorage();
   }
 
   _renderWorkoutMarker(workout) {
@@ -263,9 +280,9 @@ class App {
       `;
 
     form.insertAdjacentHTML('afterend', html);
-
   }
-   _moveToPopup(e) {
+
+  _moveToPopup(e) {
     // BUGFIX: When we click on a workout before the map has loaded, we get an error. But there is an easy fix:
     if (!this.#map) return;
 
@@ -283,8 +300,31 @@ class App {
         duration: 1,
       },
     });
+
+    // using the public interface
+    // workout.click();
+  }
+
+  _setLocalStorage() {
+    localStorage.setItem('workouts', JSON.stringify(this.#workouts));
+  }
+
+  _getLocalStorage() {
+    const data = JSON.parse(localStorage.getItem('workouts'));
+
+    if (!data) return;
+
+    this.#workouts = data;
+
+    this.#workouts.forEach(work => {
+      this._renderWorkout(work);
+    });
+  }
+
+  reset() {
+    localStorage.removeItem('workouts');
+    location.reload();
+  }
 }
 
-// App Creation
 const app = new App();
-app._getPosition();
