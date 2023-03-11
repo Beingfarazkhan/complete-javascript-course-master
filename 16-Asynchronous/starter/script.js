@@ -4,7 +4,8 @@ const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
 ///////////////////////////////////////
-/*
+/*//Our First AJAX Call : XMLHttpRequest
+
 const getCountry = function (country) {
   const request = new XMLHttpRequest();
   request.open('GET', `https://restcountries.com/v3.1/name/${country}`);
@@ -38,7 +39,8 @@ const getCountry = function (country) {
 getCountry('spain');
 getCountry('portugal');
 */
-
+///////////////////////////////////////////////////////////////////////////////////
+/////WELCOME TO CALLBACK HELL
 const renderCountry = function (data, className = '') {
   const html = `<article class="country ${className}">
     <img class="country__img" src="${data.flags.png}" />
@@ -57,7 +59,7 @@ const renderCountry = function (data, className = '') {
 
   countriesContainer.style.opacity = 1;
 };
-
+/*
 const getCountryAndNeighbour = function (country) {
   //   AJAX HTTP request for country 1
   const request = new XMLHttpRequest();
@@ -106,3 +108,13 @@ setTimeout(() => {
     }, 1000);
   }, 1000);
 }, 1000);
+*/
+
+// Old Way
+// const request = new XMLHttpRequest();
+// request.open('GET', `https://restcountries.com/v3.1/name/${country}`);
+// request.send();
+
+// New Way
+const request = fetch(`https://restcountries.com/v3.1/name/portugal`);
+console.log(request);
