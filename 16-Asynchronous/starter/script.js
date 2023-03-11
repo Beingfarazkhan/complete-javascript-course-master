@@ -3,6 +3,11 @@
 const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
+const renderError = function (msg) {
+  countriesContainer.insertAdjacentText('beforeend', msg);
+  // countriesContainer.style.opacity = 1; //Handled by finally() func
+};
+
 ///////////////////////////////////////
 /*//Our First AJAX Call : XMLHttpRequest
 
@@ -57,7 +62,7 @@ const renderCountry = function (data, className = '') {
 `;
   countriesContainer.insertAdjacentHTML('beforeend', html);
 
-  countriesContainer.style.opacity = 1;
+  // countriesContainer.style.opacity = 1; //Handled by finally() func
 };
 /*
 const getCountryAndNeighbour = function (country) {
@@ -135,24 +140,44 @@ setTimeout(() => {
 // Arrow Function
 const getCountryData = country => {
   fetch(`https://restcountries.com/v3.1/name/${country}`)
-    .then(response => response.json())
+    .then(
+      response => response.json()
+      /*Second CallBack Function for error handling aka Catching*/
+      // err => alert(err)
+    )
     .then(data => {
       renderCountry(data[0]);
       // console.log(data[0]);
       const neighbour = data[0].borders[0];
-      console.log(neighbour);
+      // console.log(neighbour);
 
       if (!neighbour) return;
 
       // Country 2
       return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
     })
-    .then(response => response.json())
+    .then(
+      response => response.json(),
+      err => alert(err)
+    )
     .then(data => {
-      console.log(data[0]);
+      // console.log(data[0]);
       renderCountry(data[0], 'neighbour');
+    })
+    .catch(err => {
+      console.error(`${err} 💣💣🔥`);
+      renderError(`Something Went Wrong 💣💣🔥 ${err.message}. Try Again!`);
+    })
+    .finally(() => {
+      console.log('Always called wether the promise is fulfilled or rejected');
+      // Use Case : Add a spinner when an async operation starts
+      countriesContainer.style.opacity = 1;
     });
 };
 
 // getCountryData('germany');
-getCountryData('portugal');
+// getCountryData('portugal');
+
+btn.addEventListener('click', function () {
+  getCountryData('portugal');
+});
