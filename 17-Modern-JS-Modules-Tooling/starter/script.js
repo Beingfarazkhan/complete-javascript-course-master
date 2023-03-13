@@ -18,3 +18,25 @@ console.log('Importing Module');
 
 // ShoppingCart.addToCart('butter', 1);
 // console.log(ShoppingCart.cart);
+
+// Default Imports :
+// note: you can use default and named exports together but its not a good practice to do that
+// import add, {
+//     addToCart,
+//   totalPrice as price,
+//   tq,
+//   cart,
+// } from './shoppingCart.js';
+
+// add('pizza', 2);
+// console.log(price, tq);
+
+// console.log(cart); //Cart is dynamic
+
+// addToCart('bread', 4);
+// addToCart('pasta', 1);
+// addToCart('milk', 6);
+
+import add from './shoppingCart.js';
+
+add('pizza', 2);
