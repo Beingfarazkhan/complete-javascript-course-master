@@ -312,6 +312,7 @@ GOOD LUCK 😀
 
 //  MICROTASK QUEUE >>> CALLBACK QUEUE
 
+/*
 console.log('Test Start');
 setTimeout(() => console.log('0 sec timer'), 0); //Callback queue
 
@@ -325,3 +326,24 @@ Promise.resolve('Promise 2 is resolved').then(res => {
 });
 Promise.resolve('Promise 3 is resolved ').then(res => console.log(res));
 console.log('Test End');
+
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////
+// Creating Promises :
+
+// Note : every promise has an executor function which runs whenever the Promise Constructor is executed
+/*
+const lotteryPromise = new Promise(function (resolve, reject) {
+  console.log('Lottery Draw is awaiting....');
+  setTimeout(function () {
+    if (Math.random() >= 0.5) {
+      resolve('Congratulations you win the lottery !!!');
+    } else {
+      reject(new Error('You Lost ! try again later'));
+    }
+  }, 2000);
+});
+
+lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
+*/
