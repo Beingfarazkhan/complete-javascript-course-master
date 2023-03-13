@@ -5,7 +5,7 @@ const countriesContainer = document.querySelector('.countries');
 
 const renderError = function (msg) {
   countriesContainer.insertAdjacentText('beforeend', msg);
-  // countriesContainer.style.opacity = 1; //Handled by finally() func
+  countriesContainer.style.opacity = 1; //Handled by finally() func
 };
 
 const getJSON = function (url, errorMsg = 'Something went wrong') {
@@ -70,7 +70,7 @@ const renderCountry = function (data, className = '') {
 `;
   countriesContainer.insertAdjacentHTML('beforeend', html);
 
-  // countriesContainer.style.opacity = 1; //Handled by finally() func
+  countriesContainer.style.opacity = 1; //Handled by finally() func
 };
 /*
 const getCountryAndNeighbour = function (country) {
@@ -475,6 +475,29 @@ const whereAmI = function () {
 btn.addEventListener('click', whereAmI);
 */
 
+// Async - Await :
+
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+
+const whereAmI = async function (country) {
+  // fetch(`https://restcountries.com/v3.1/name/${country}`).then(res =>
+  //   console.log(res)
+  // ); //Same result as async await
+
+  const res = await fetch(`https://restcountries.com/v3.1/name/${country}`);
+  const data = await res.json();
+  console.log(data[0]);
+  renderCountry(data[0]);
+};
+
+whereAmI('portugal');
+console.log('FIRST');
+
+/////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 // Coding Challenge #1
 
