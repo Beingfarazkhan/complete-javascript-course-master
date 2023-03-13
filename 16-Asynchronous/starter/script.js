@@ -347,3 +347,64 @@ const lotteryPromise = new Promise(function (resolve, reject) {
 
 lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
 */
+
+// Promisifying : Converting old callback based async behaviour into promise based
+
+// Promisifying setTimeout function :
+const wait = function (seconds) {
+  return new Promise(function (resolve) {
+    setInterval(resolve, seconds * 1000);
+  });
+};
+// You can execute any function in wait func that you want to execute after a specific period of time
+// wait(3).then(() => {
+//   console.log('I waited for 3 seconds...');
+// });
+
+// You can also chain callBack Functions(async behaviour) like this all without the callBack hell
+
+// wait(2)
+//   .then(() => {
+//     console.log('I waited for 2 seconds..');
+//     return wait(1);
+//   })
+//   .then(() => {
+//     console.log('I waited for 1 second more.');
+//   });
+
+// Example :
+
+wait(1)
+  .then(() => {
+    console.log('1 second passed');
+    return wait(1);
+  })
+  .then(() => {
+    console.log('2 seconds passed');
+    return wait(1);
+  })
+  .then(() => {
+    console.log('3 seconds passed');
+    return wait(1);
+  })
+  .then(() => {
+    console.log('4 seconds passed');
+  });
+
+// setTimeout(() => {
+//   console.log('1 second passed');
+//   setTimeout(() => {
+//     console.log('2 seconds passed');
+//     setTimeout(() => {
+//       console.log('3 second passed');
+//       setTimeout(() => {
+//         console.log('4 second passed');
+//       }, 1000);
+//     }, 1000);
+//   }, 1000);
+// }, 1000);
+
+// Immediate Execution methods
+
+Promise.resolve('Resolved promise').then(res => console.log(res));
+Promise.reject(new Error('Promise Rejected')).catch(err => console.error(err));
