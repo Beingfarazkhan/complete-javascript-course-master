@@ -639,11 +639,28 @@ const timeout = function (sec) {
   });
 };
 
+// Promise.race will return the first promise regardless of resolution or rejection
 Promise.race([
   getJSON(`https://restcountries.eu/rest/v2/name/tanzania`),
   timeout(5),
 ])
   .then(res => console.log(res[0]))
+  .catch(err => console.error(err));
+
+// unlike promise.all it gives result to all the promises and doesn't short circuit
+// Promise.allSettled
+Promise.allSettled([
+  Promise.resolve('Success'),
+  Promise.reject('ERROR'),
+  Promise.resolve('Another success'),
+]).then(res => console.log(res));
+
+Promise.all([
+  Promise.resolve('Success'),
+  Promise.reject('ERROR'),
+  Promise.resolve('Another success'),
+])
+  .then(res => console.log(res))
   .catch(err => console.error(err));
 
 /////////////////////////////////////////////////////////////////////////////////////////
