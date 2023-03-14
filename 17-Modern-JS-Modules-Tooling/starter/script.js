@@ -40,3 +40,26 @@ console.log('Importing Module');
 import add from './shoppingCart.js';
 
 add('pizza', 2);
+
+// Top Level Await
+
+// Blocks execution of entire module : Await outside any async will block the code of the module as well as the module importing it
+
+// console.log('Start Fetching');
+// const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+// const data = await res.json();
+// console.log(data);
+// console.log('Something');
+
+const getLastPost = async function () {
+  const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+  const data = await res.json();
+  return { title: data.at(-1).title, text: data.at(-1).body };
+};
+
+const lastPost = await getLastPost();
+// Not clean
+// const lastPost = getLastPost();
+// lastPost.then(last => console.log(last));
+
+console.log(lastPost);
