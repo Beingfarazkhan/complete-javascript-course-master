@@ -37,9 +37,9 @@ console.log('Importing Module');
 // addToCart('pasta', 1);
 // addToCart('milk', 6);
 
-import add from './shoppingCart.js';
+// import add from './shoppingCart.js';
 
-add('pizza', 2);
+// add('pizza', 2);
 
 /*
 // Top Level Await
@@ -112,3 +112,24 @@ export.addTocart = function (product, quantity) {
 // Import
 const { addTocart } = require('./shoppingCart.js');
 */
+
+import cloneDeep from '../node_modules/lodash-es/cloneDeep.js';
+
+const state = {
+  cart: [{ pizza: 2, burger: 9, pasta: 3 }],
+  addToCart() {
+    console.log('added');
+  },
+  removeFromCart() {
+    console.log('removed');
+  },
+  user: { loggedIn: true },
+};
+
+const stateClone = Object.assign({}, state);
+const stateDeepClone = cloneDeep(state);
+
+state.user.loggedIn = false;
+
+console.log(stateClone);
+console.log(stateDeepClone);
