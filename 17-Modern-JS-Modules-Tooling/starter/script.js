@@ -1,11 +1,11 @@
 // Importing Module
-// import { addToCart, totalPrice as price, tq, cart } from './shoppingCart.js';
+import { addToCart, totalPrice as price, tq, cart } from './shoppingCart.js';
 // console.log('Importing Module');
 
-// addToCart('bread', 5);
-// addToCart('butter', 1);
-// console.log(cart);
-// console.log(price, tq);
+addToCart('bread', 5);
+addToCart('butter', 1);
+console.log(cart);
+console.log(price, tq);
 
 console.log('Importing Module');
 
@@ -114,6 +114,7 @@ const { addTocart } = require('./shoppingCart.js');
 */
 
 import cloneDeep from '../node_modules/lodash-es/cloneDeep.js';
+// import cloneDeep from 'lodash-es';
 
 const state = {
   cart: [{ pizza: 2, burger: 9, pasta: 3 }],
@@ -133,3 +134,26 @@ state.user.loggedIn = false;
 
 console.log(stateClone);
 console.log(stateDeepClone);
+
+if (module.hot) {
+  module.hot.accept();
+}
+
+class Person {
+  #greeting = 'hey';
+  constructor(name) {
+    this.name = name;
+    console.log(`${this.#greeting}, ${this.name}`);
+  }
+}
+
+const jonas = new Person('Jonas');
+
+console.log('Jonas' ?? null);
+
+console.log(cart.find(el => el.quantity >= 2));
+Promise.resolve('Test').then(res => console.log(res));
+
+import 'core-js/stable';
+// import 'core-js/stable/array/find';
+// import 'core-js/stable/promise';
