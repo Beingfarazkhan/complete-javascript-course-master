@@ -5,9 +5,9 @@ const shippingCost = 10;
 const cart = [];
 
 // Blocking Code :
-console.log('Started Fetching users');
-await fetch('https://jsonplaceholder.typicode.com/users');
-console.log('Finished Fetching users');
+// console.log('Started Fetching users');
+// await fetch('https://jsonplaceholder.typicode.com/users');
+// console.log('Finished Fetching users');
 
 export const addToCart = function (product, quantity) {
   cart.push({ product, quantity });
