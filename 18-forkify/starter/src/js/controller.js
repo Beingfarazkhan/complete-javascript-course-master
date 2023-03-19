@@ -14,7 +14,7 @@ const recipeContainer = document.querySelector('.recipe');
 const controlRecipes = async function () {
   try {
     const id = window.location.hash.slice(1);
-    console.log(id);
+    // console.log(id);
 
     if (!id) return;
 
@@ -32,8 +32,11 @@ const controlRecipes = async function () {
   }
 };
 
-window.addEventListener('hashchange', controlRecipes);
-window.addEventListener('load', controlRecipes);
+const init = function () {
+  recipeView.addHandlerRender(controlRecipes);
+};
+
+init();
 
 if (module.hot) {
   module.hot.accept();
