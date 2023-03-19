@@ -28,7 +28,7 @@ const controlRecipes = async function () {
     // If only class was exported :
     //  const recipeview = new RecipeView(recipe)
   } catch (err) {
-    alert(err);
+    recipeView.renderError();
   }
 };
 
