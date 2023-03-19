@@ -595,7 +595,7 @@ const controlRecipes = async function() {
     // If only class was exported :
     //  const recipeview = new RecipeView(recipe)
     } catch (err) {
-        alert(err);
+        (0, _recipeViewJsDefault.default).renderError();
     }
 };
 const init = function() {
@@ -2023,6 +2023,7 @@ const loadRecipe = async function(id) {
     // console.log(state.recipe);
     } catch (err) {
         console.error(`${err} 💣💥`);
+        throw err;
     }
 };
 
@@ -2688,6 +2689,8 @@ var _fractional = require("fractional");
 class RecipeView {
     #parentElement = document.querySelector(".recipe");
     #data;
+    #errorMessage = "We could not find the Recipe you wanted. Please Try Another One !";
+    #message = "";
     render(data) {
         this.#data = data;
         const markup = this.#generateMarkup();
@@ -2703,7 +2706,8 @@ class RecipeView {
       <use href="${(0, _iconsSvgDefault.default)}#icon-loader"></use>
     </svg>
   </div>`;
-        this.#parentElement.innerHTML = ``;
+        // this.#parentElement.innerHTML = ``;
+        this.#clear();
         this.#parentElement.insertAdjacentHTML("afterbegin", markup);
     };
     addHandlerRender(handler) {
@@ -2711,6 +2715,34 @@ class RecipeView {
             "hashchange",
             "load"
         ].forEach((ev)=>window.addEventListener(ev, handler));
+    }
+    renderError(message = this.#errorMessage) {
+        const markup = `
+    <div class="error">
+            <div>
+              <svg>
+                <use href="src/img/${(0, _iconsSvgDefault.default)}#icon-alert-triangle"></use>
+              </svg>
+            </div>
+            <p>${message}</p>
+          </div>
+          `;
+        this.#clear();
+        this.#parentElement.insertAdjacentHTML("afterbegin", markup);
+    }
+    renderMessage(message = this.#message) {
+        const markup = `
+    <div class="error">
+            <div>
+              <svg>
+                <use href="src/img/${(0, _iconsSvgDefault.default)}#icon-smile"></use>
+              </svg>
+            </div>
+            <p>${message}</p>
+          </div>
+          `;
+        this.#clear();
+        this.#parentElement.insertAdjacentHTML("afterbegin", markup);
     }
     #generateMarkup() {
         return `
