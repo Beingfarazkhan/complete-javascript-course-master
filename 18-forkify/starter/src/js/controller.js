@@ -8,10 +8,6 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import { async } from 'regenerator-runtime';
 
-if (module.hot) {
-  module.hot.accept();
-}
-
 // const recipeContainer = document.querySelector('.recipe'); //It belongs to the DOM so shouldnt be displayed here
 
 // https://forkify-api.herokuapp.com/v2
@@ -50,7 +46,7 @@ const controlSearchResults = async function () {
     await model.loadSearchResults(query);
 
     // 3) Render results :
-    resultsView.render(model.state.search.results);
+    resultsView.render(model.getSearchResultPage());
   } catch (err) {
     console.error(err);
   }
