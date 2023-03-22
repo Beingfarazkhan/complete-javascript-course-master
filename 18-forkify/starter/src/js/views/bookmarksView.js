@@ -1,10 +1,10 @@
 import View from './Views';
 import previewView from './previewView';
-import icons from 'url:../../img/icons.svg';
+import icons from 'url:../../img/icons.svg'; // Parcel 2
 
 class BookmarksView extends View {
   _parentElement = document.querySelector('.bookmarks__list');
-  _errorMessage = 'No Bookmarks Yet, Find a nice recipe and Bookmark it 🍽️';
+  _errorMessage = 'No bookmarks yet. Find a nice recipe and bookmark it ;)';
   _message = '';
 
   addHandlerRender(handler) {
@@ -17,4 +17,5 @@ class BookmarksView extends View {
       .join('');
   }
 }
+
 export default new BookmarksView();
